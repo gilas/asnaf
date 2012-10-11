@@ -76,6 +76,7 @@ class AppController extends Controller {
             'Form',
         );
         $this->Auth->flash =  array('element' => 'message','key' => 'auth','params' => array('type' => 'warning  no-margin-login top',));
+        $this->Auth->allow('register', 'login', 'index', 'view');
     }
 
     function _isLogedIn() {
