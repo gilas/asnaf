@@ -130,8 +130,8 @@ class AdminFormHelper extends AppHelper{
  * 
  * @return 'form' tag
  */
-    public function startFormTag(){
-        return $this->Form->create(null,array('action' => 'dispatch','id' => 'adminForm'));
+    public function startFormTag($model = null){
+        return $this->Form->create($model,array('action' => 'dispatch','id' => 'adminForm'));
     }
     
 /**

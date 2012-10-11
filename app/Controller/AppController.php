@@ -33,7 +33,15 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array('Session', 'Auth');
+    public $components = array(
+        'Acl',
+        'Auth' => array(
+            'authorize' => array('Actions' => array('actionPath' => 'controllers'),),
+        ),
+        'Session',
+        //TODO: we have an error in ajax forms and some forms e: UsersController::admin_add
+        //'Security',
+    );
     public $helpers = array(
         'Form',
         'Html',
@@ -55,13 +63,19 @@ class AppController extends Controller {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->authError = 'برای مشاهده این صفحه باید ابتدا وارد شوید';
-        $this->Auth->loginRedirect = array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE);
-        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login', 'admin' => TRUE);
-        $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login', 'admin' => TRUE);
-        $this->Auth->allow('register', 'login', 'index', 'view');
-
+        $this->__initializeAuth();
         $this->set('isLogedIn', $this->_isLogedIn());
+    }
+    
+    private function __initializeAuth(){
+        $this->Auth->authError = 'اجازه دسترسی به آدرس درخواستی را ندارید.';
+        $this->Auth->loginAction =    array('plugin' => null,'controller' => 'users','action' => 'login',);
+        $this->Auth->logoutRedirect = array('plugin' => null,'controller' => 'users','action' => 'login',);
+        $this->Auth->authenticate =   array(
+            //AuthComponent::ALL => array('scope' => array('User.is_active' => 1)),
+            'Form',
+        );
+        $this->Auth->flash =  array('element' => 'message','key' => 'auth','params' => array('type' => 'warning  no-margin-login top',));
     }
 
     function _isLogedIn() {

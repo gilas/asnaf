@@ -51,7 +51,8 @@ class User extends AppModel {
             'exclusive' => '',
             'finderQuery' => '',
             'counterQuery' => ''
-        )
+        ),
+        'Role',
     );
 
     public function beforeSave() {
@@ -59,6 +60,10 @@ class User extends AppModel {
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
         }
         return true;
+    }
+    
+    public function bindNode($user) {
+            return array('model' => 'Role', 'foreign_key' => $user['User']['role_id']);
     }
 
 }

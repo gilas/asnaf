@@ -34,6 +34,10 @@
         <?php echo $this->Html->image('icon-pack/48x48/Image.png'); ?>
         <?php echo $this->Html->link('اسلایدر', array('controller' => 'SliderItems', 'action' => 'index', 'admin' => TRUE)); ?>
     </div>
+    <div class="span2 well" style="padding: 4px;">
+        <?php echo $this->Html->image('icon-pack/48x48/Lock.png'); ?>
+        <?php echo $this->Html->link('سطح دسترسی', array('controller' => 'AclPermissions', 'action' => 'index', 'admin' => TRUE)); ?>
+    </div>
 </div>
 
 
