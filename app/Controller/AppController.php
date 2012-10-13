@@ -64,7 +64,7 @@ class AppController extends Controller {
     
     public $publicActions = array();
 
-    public function beforeFilter() {$this->GilasAcl->hasPermission(array('action' => 'index'));
+    public function beforeFilter() {
         parent::beforeFilter();
         $this->__initializeAuth();
         $this->set('isLogedIn', $this->_isLogedIn());
