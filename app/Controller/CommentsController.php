@@ -8,6 +8,8 @@ App::uses('AppController', 'Controller');
  * @property Comment $Comment
  */
 class CommentsController extends AppController {
+    
+    public $publicActions = array('add_comment');
 
     public function beforeRender() {
         parent::beforeRender();

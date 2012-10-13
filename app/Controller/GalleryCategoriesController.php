@@ -8,6 +8,8 @@ App::uses('AppController', 'Controller');
  * @property GalleryCategory $GalleryCategory
  */
 class GalleryCategoriesController extends AppController {
+    
+    public $publicActions = array('index');
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت مجموعه گالری');

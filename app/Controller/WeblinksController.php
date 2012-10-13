@@ -8,6 +8,9 @@ App::uses('AppController', 'Controller');
  * @property Weblink $Weblink
  */
 class WeblinksController extends AppController {
+    
+    public $publicActions = array('go');
+    
     public $paginateConditions = array(
         'category_id' => array('field' => 'Weblink.weblink_category_id'),
     );

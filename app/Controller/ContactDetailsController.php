@@ -9,7 +9,9 @@ App::uses('CakeEmail', 'Network/Email');
  * @property ContactDetail $ContactDetail
  */
 class ContactDetailsController extends AppController {
-
+    
+    public $publicActions = array('view');
+    
     public function admin_add() {
         $this->set('title_for_layout', 'افزودن اطلاعات تماس');
         if ($this->request->is('post')) {
@@ -89,12 +91,11 @@ class ContactDetailsController extends AppController {
     
     public function view($id = NULL) {
         if ($this->request->is('post')) {
-//            $email = new CakeEmail('smtp');
-//            $email->from(array($this->request->data['ContactDetail']['email'] => $this->request->data['ContactDetail']['name']));
-//            $email->to('1razzaghi@gmail.com');
-//            $email->subject('Contact Form');
-//            $email->send($this->request->data['ContactDetail']['content']);
-            CakeEmail::deliver('1razzaghi@gmail.com', 'Contact Form', $this->request->data['ContactDetail']['content'], array('from' => $this->request->data['ContactDetail']['email']));
+            $email = new CakeEmail('smtp');
+            $email->from(array($this->request->data['ContactDetail']['email'] => $this->request->data['ContactDetail']['name']));
+            $email->to('1razzaghi@gmail.com');
+            $email->subject('Contact Form');
+            $email->send($this->request->data['ContactDetail']['content']);
             $this->Session->setFlash('Your Message Have Been Sent.');
             $this->redirect($this->referer());
         } else {

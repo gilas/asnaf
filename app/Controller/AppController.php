@@ -60,6 +60,8 @@ class AppController extends Controller {
      * use 'type' index if you want use LIKE method
      */
     public $paginateConditions = array();
+    
+    public $publicActions = array();
 
     public function beforeFilter() {
         parent::beforeFilter();
@@ -76,7 +78,7 @@ class AppController extends Controller {
             'Form',
         );
         $this->Auth->flash =  array('element' => 'message','key' => 'auth','params' => array('type' => 'warning  no-margin-login top',));
-        $this->Auth->allow('register', 'login', 'index', 'view');
+        $this->Auth->allow($this->publicActions);
     }
 
     function _isLogedIn() {

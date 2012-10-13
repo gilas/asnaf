@@ -1,6 +1,10 @@
 <?php
 // Add
 $this->AdminForm->addToolbarItem($this->Html->tag('i','',array('class' => 'icon-refresh icon-white')),array('action' => 'sync','normalLink' => true ),array('class' => 'btn btn-success','escape' => false, 'rel' => 'tooltip','data-original-title' => 'بروزرسانی','tooltip-place' => 'bottom'));
+foreach($aros as $aro_id => $aro){
+    $this->AdminForm->addToolbarItem($this->Html->tag('i','',array('class' => 'icon-ok icon-white')),array('action' => 'editPermission', 'aro' => $aro_id,'type' => 'on'),array('class' => 'btn btn-success','escape' => false, 'rel' => 'tooltip','data-original-title' => $aro,'tooltip-place' => 'bottom'));
+    $this->AdminForm->addToolbarItem($this->Html->tag('i','',array('class' => 'icon-remove icon-white')),array('action' => 'editPermission', 'aro' => $aro_id,'type' => 'off'),array('class' => 'btn btn-success','escape' => false, 'rel' => 'tooltip','data-original-title' => $aro,'tooltip-place' => 'bottom'));
+}
 //Show toolbar
 $this->AdminForm->showToolbar('مدیریت سطح دسترسی');
 echo $this->AdminForm->startFormTag('AclPermission');
@@ -58,18 +62,7 @@ echo $this->AdminForm->startFormTag('AclPermission');
     text-align: right;
     font-weight: bold;
     cursor: pointer;
+    background-color: #2C2C2C !important;
+    color: #FFF;
 }
 </style>
-<script>
-    $(function(){
-        $('#permissions tbody tr:not(.Controller)').hide()
-        $('#permissions .Controller').click(function(){
-            $('#permissions tbody tr:not(.Controller)').hide()
-            $next = $(this).next('tr')
-            while($next.html() && !$next.hasClass('Controller')){
-                $next.slideToggle()
-                $next = $next.next('tr')                
-            }
-        })
-    })
-</script>

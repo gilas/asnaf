@@ -10,7 +10,9 @@
  */
 
 class UsersController extends AppController {
-
+    
+    public $publicActions = array('register');
+    
     public function beforeRender() {
         parent::beforeRender();
         if ($this->request->params['action'] == 'admin_login')

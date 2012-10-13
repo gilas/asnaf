@@ -15,7 +15,9 @@
  * @property Setting $Setting
  */
 class SettingsController extends AppController {
-
+    
+    public $publicActions = array('read');
+    
     // use for caching fetched settings
     private static $__cachedSetting = array();
 

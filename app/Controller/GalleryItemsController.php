@@ -8,11 +8,8 @@ App::uses('AppController', 'Controller');
  * @property GalleryItem $GalleryItem
  */
 class GalleryItemsController extends AppController {
-
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('getItems');
-    }
+    
+    public $publicActions = array('getItems', 'view');
 
     public $paginate = array('order' => 'GalleryItem.lft ASC');
     public $helpers = array('UploadPack.Upload');
@@ -121,47 +118,33 @@ class GalleryItemsController extends AppController {
         $this->redirect($this->referer());
     }
 
-    public function view($catId, $id = NULL) {
+    public function view($catId, $id) {
         $this->GalleryItem->GalleryCategory->id = $catId;
         if (!$this->GalleryItem->GalleryCategory->exists()) {
             throw new NotFoundException(SettingsController::read('Error.Code-14'));
         }
-
-        if ($id == NULL) {
-            $image = $this->GalleryItem->find('first', array(
-                'conditions' => array(
-                    'GalleryItem.gallery_category_id' => $catId
-                ),
-                'order' => 'GalleryItem.lft ASC'
-                    ));
-            $neighbors = $this->GalleryItem->find('neighbors', array(
-                'field' => 'lft',
-                'value' => $image['GalleryItem']['lft'],
-                'order' => 'GalleryItem.lft ASC'
-                    )
-            );
-        } else {
-
-            $image = $this->GalleryItem->find('first', array(
-                'conditions' => array(
-                    'GalleryItem.id' => $id
-                )
-                    ));
-            $neighbors = $this->GalleryItem->find('neighbors', array(
-                'field' => 'lft',
-                'value' => $image['GalleryItem']['lft'],
-                'order' => 'GalleryItem.lft ASC'
-                    )
-            );
+        $image = $this->GalleryItem->find('first', array(
+            'conditions' => array(
+                'GalleryItem.id' => $id
+            )
+                ));
+        $neighbors = $this->GalleryItem->find('neighbors', array(
+            'field' => 'lft',
+            'value' => $image['GalleryItem']['lft'],
+            'conditions' => array('GalleryItem.gallery_category_id' => $catId),
+            'order' => 'GalleryItem.lft ASC',
+            'contain' => false,
+            )
+        );
+        $this->set('cat_id', $catId);
+        if(!empty($neighbors['next']['GalleryItem']['id'])){
+            $this->set('next_id', $neighbors['next']['GalleryItem']['id']);
         }
-
-
-        $this->set('neighbors', $neighbors);
+        if(!empty($neighbors['prev']['GalleryItem']['id'])){
+            $this->set('prev_id', $neighbors['prev']['GalleryItem']['id']);
+        }
+        
         $this->set('image', $image);
-
-//        $this->paginate = array('limit' => 1);
-//        $this->paginate['conditions'] = array('gallery_category_id' => $id);
-//        $this->set('images', $this->paginate());
     }
 
     public function getItems($id = NULL) {

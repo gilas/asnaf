@@ -41,9 +41,41 @@ class AclPermissionsController extends AppController{
             throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
         }
         $id = $this->request->data['id'];
-        $aco_id = current($id);
         $aro_id = $this->request->data['aro'];
         $type = $this->request->data['type'];
+        if(count($id) == 1){
+            $aco_id = current($id);
+            if($this->_grant($aco_id, $aro_id, $type)){
+                $this->Session->setFlash('تغییرات انجام گردید.', 'message', array('type' => 'success'));
+            }else{
+                $this->Session->setFlash(SettingsController::read('Error.Code-17'), 'message', array('type' => 'error'));
+            }
+        }else{
+            $countAccepted = 0;
+            
+            foreach ($id as $aco_id) {
+                if($this->_grant($aco_id, $aro_id, $type)){
+                    $countAccepted++ ;
+                }
+            }
+            if($countAccepted){
+                $this->Session->setFlash($countAccepted . 'تغییرات انجام گردید  .', 'message', array('type' => 'success'));
+            }else{
+                $this->Session->setFlash(SettingsController::read('Error.Code-17'), 'message', array('type' => 'error'));
+            }
+        }
+        $this->redirect($this->referer());
+    }
+    
+    public function admin_sync(){
+        $this->AclGenerate = $this->Components->load('AclGenerate');
+        $this->AclGenerate->initialize($this);
+        $this->AclGenerate->aco_sync();
+        $this->Session->setFlash('جدول متدها بروزرسانی شد','alert',array('type' => 'success'));
+        $this->redirect(array('action' => 'index'));
+    }
+    
+    protected function _grant($aco_id, $aro_id, $type){
         $row = $this->ArosAco->find('first',array(
             'conditions' => array(
                 'aco_id' => $aco_id,
@@ -62,26 +94,9 @@ class AclPermissionsController extends AppController{
         
         if($row){
             $this->ArosAco->id = $row['ArosAco']['id'];
-        }
-        if($this->ArosAco->save($permission)){
-            $this->Session->setFlash('تغییرات انجام گردید.', 'message', array('type' => 'success'));
         }else{
-            $this->Session->setFlash(SettingsController::read('Error.Code-17'), 'message', array('type' => 'error'));
+            $this->ArosAco->create();
         }
-        $this->redirect($this->referer());
-        
-    }
-    
-    public function admin_sync(){
-        $this->AclGenerate = $this->Components->load('AclGenerate');
-        $this->AclGenerate->initialize($this);
-        $this->AclGenerate->aco_sync();
-        $this->Session->setFlash('جدول متدها بروزرسانی شد','alert',array('type' => 'success'));
-        $this->redirect(array('action' => 'index'));
-    }
-    
-    public function beforeFilter(){
-        parent::beforeFilter();
-        $this->Auth->allow('*');
+        return $this->ArosAco->save($permission);
     }
 }

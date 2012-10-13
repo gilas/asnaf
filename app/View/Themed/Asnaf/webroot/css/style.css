@@ -697,7 +697,7 @@ img.alignright,
 	background: url(../img/mask.png) repeat;
 }
 
-.descr-wrapper .any-text {float: right; padding: 1.5em 10px 0 0;}
+.descr-wrapper .any-text {float: right; padding: 1.5em 10px 0 0;width: 84%;}
 .descr-wrapper h4 {color: #fff;}
 
 .descr-wrapper .buttons{
@@ -719,14 +719,14 @@ img.alignright,
 	text-indent:-9999px;
 }
 
-.descr-wrapper .buttons .prev,
-.text .buttons .prev {background-position: -46px 0;}
-
-.descr-wrapper .buttons .prev:hover,
-.text .buttons .prev:hover {background-position: -46px -56px;}
+.descr-wrapper .buttons .next,
+.text .buttons .next {background-position: -46px 0;}
 
 .descr-wrapper .buttons .next:hover,
-.text .buttons .next:hover {background-position: 0 -56px;}
+.text .buttons .next:hover {background-position: -46px -56px;}
+
+.descr-wrapper .buttons .prev:hover,
+.text .buttons .prev:hover {background-position: 0 -56px;}
 
 /*--------------------------------*/
 /*  GENERAL STRUCTURE             */
@@ -4628,4 +4628,20 @@ span[rel=loading]:before{
 .information{
     display: block;
     margin: 10px 15px;
+}
+
+ul.gallery li{
+	float:right;
+}
+ul.gallery img{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 2px 2px 2px 2px;
+    margin:10px;
+    padding:3px;
+    cursor:pointer;
+}
+
+#gallery_item img{
+	height: 500px
 }

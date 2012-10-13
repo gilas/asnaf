@@ -9,6 +9,8 @@ App::uses('AppController', 'Controller');
  */
 class SliderItemsController extends AppController {
     
+    public $publicActions = array('getSlides');
+    
     public $paginateConditions = array(
         'title' => array(
             'type' => 'LIKE',
@@ -22,11 +24,7 @@ class SliderItemsController extends AppController {
     );
     
     public $helpers = array('UploadPack.Upload');
-	
-	public function beforeFilter(){
-		parent::beforeFilter();
-		$this->Auth->allow('getSlides');
-	}        
+	      
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت اسلایدر صفحه نخست');
         $sliderItems = $this->paginate();

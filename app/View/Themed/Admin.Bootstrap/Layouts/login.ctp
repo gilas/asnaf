@@ -23,7 +23,7 @@
     <body>
         <div class="login-container">
             <div id="top">
-                <div id="msg"><?php echo $this->Session->flash(); ?></div>
+                <div id="msg"><?php echo $this->Session->flash('auth'); ?></div>
             </div>
             <div id="login"><?php echo $this->fetch('content'); ?></div>
             <div id = "footer">کلیه حقوق مادی و معنوی این نرم افزار متعلق به شرکت اندیشه نوین می باشد.</div>

@@ -24,11 +24,8 @@ class ContentsController extends AppController {
         'order' => 'Content.lft DESC',
     );
     private $__readMore = '<hr id="system-readmore" />';
-
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow(array('search', 'home', 'category', 'archive'));
-    }
+    
+    public $publicActions = array('search', 'home', 'category', 'archive','view');
 
     public function admin_index() {
         $this->set('title_for_layout', 'مدیریت مطالب');
@@ -287,20 +284,6 @@ class ContentsController extends AppController {
             return;
         }
     }
-
-//    public function index() {
-//        $contents = $this->Content->find('all', array(
-//            'conditions' => array(
-//                'Content.frontpage' => '1',
-//                'Content.published' => '1'
-//            ),
-//            'order' => array(
-//                'Content.lft' => 'desc',
-//                'Content.created' => 'desc'
-//            )
-//                ));
-//        $this->set('contents', $contents);
-//    }
 
     public function index($conditions = array()) {
         $this->set('title_for_layout', 'مطالب');

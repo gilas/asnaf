@@ -23,10 +23,7 @@ class MenusController extends AppController {
         'contain' => array('MenuType', 'LinkType'),
     );
     
-    public function beforeFilter() {
-        parent::beforeFilter();
-        $this->Auth->allow('getMenu');
-    }
+    public $publicActions = array('getMenu');
 
 /**
  * admin_index method

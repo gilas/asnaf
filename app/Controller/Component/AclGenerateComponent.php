@@ -183,17 +183,17 @@ class AclGenerateComponent extends Component {
 	function _checkMethods($className, $controllerName, $node, $pluginPath = false) {
 		$baseMethods = get_class_methods('Controller');
 		$actions = get_class_methods($className);
-        //$vars = get_class_vars($className);
-        //$publicActions = $vars['publicActions'];
+        $vars = get_class_vars($className);
+        $publicActions = $vars['publicActions'];
 		$methods = array_diff($actions, $baseMethods);
 		foreach ($methods as $action) {
 			if (strpos($action, '_', 0) === 0) {
 				continue;
 			}
-            // if action is in public actions
-//            if (in_array($action,(array)$publicActions)) {
-//				continue;
-//			}
+             //if action is in public actions
+            if (in_array($action,(array)$publicActions)) {
+				continue;
+			}
 			$path = $this->rootNode . '/' . $pluginPath . $controllerName . '/' . $action;
 			$this->_checkNode($path, $action, $node['Aco']['id']);
 		}
