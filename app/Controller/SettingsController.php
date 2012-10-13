@@ -29,7 +29,11 @@ class SettingsController extends AppController {
             }
         }
         $this->set('title_for_layout', 'ویرایش تنظیمات سیستم');
-        $settings = $this->Setting->find('all', array('conditions' => array('section' => array('Site','Error'))));
+        $sections = array('Site');
+        if($this->Auth->user('Role.name') == 'SuperAdmin'){
+            $sections[] = 'Error';
+        }
+        $settings = $this->Setting->find('all', array('conditions' => array('section' => $sections)));
         if($settings){
             $newArray = array();
             foreach($settings as $setting){

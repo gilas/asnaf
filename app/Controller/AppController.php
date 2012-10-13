@@ -39,6 +39,7 @@ class AppController extends Controller {
             'authorize' => array('Actions' => array('actionPath' => 'controllers'),),
         ),
         'Session',
+        'GilasAcl',
         //TODO: we have an error in ajax forms and some forms e: UsersController::admin_add
         //'Security',
     );
@@ -63,7 +64,7 @@ class AppController extends Controller {
     
     public $publicActions = array();
 
-    public function beforeFilter() {
+    public function beforeFilter() {$this->GilasAcl->hasPermission(array('action' => 'index'));
         parent::beforeFilter();
         $this->__initializeAuth();
         $this->set('isLogedIn', $this->_isLogedIn());

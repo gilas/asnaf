@@ -52,9 +52,10 @@ class User extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         ),
-        'Role',
     );
-
+    
+    public $belongsTo = array('Role');
+    
     public function beforeSave() {
         if (isset($this->data[$this->alias]['password'])) {
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
