@@ -33,6 +33,11 @@
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <?php echo $this->Html->link($this->Html->image('logo-small.png'), array('controller' => 'dashboards','plugin' => false, 'action' => 'index', 'admin' => TRUE), array('class' => 'brand', 'escape' => false)); ?>
+                    <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
                     <div class="nav-collapse">
                         <?php echo $this->element('menu'); ?>
                     </div><!--/.nav-collapse -->

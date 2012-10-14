@@ -8,7 +8,9 @@ App::uses('AppController', 'Controller');
  * @property ContentCategory $ContentCategory
  */
 class ContentCategoriesController extends AppController {
-
+    
+    public $publicActions = array('getList');
+    
     public function admin_add() {
         $this->set('title_for_layout', 'افزودن مجموعه مطالب');
         $this->set('parents', $this->ContentCategory->generateTreeList());
@@ -127,6 +129,16 @@ class ContentCategoriesController extends AppController {
         $this->paginate['limit'] = 10;
         $this->paginate['recursive'] = -1;
         $this->set('categories',$this->paginate());
+    }
+    
+    /**
+     * Return all categories in array
+     * 
+     * @return
+     */
+    public function getList(){
+        $categories = $this->ContentCategory->find('all',array('conditions' => array('published' => true),'contain' => false));
+        return $categories;
     }
 
 }

@@ -32,7 +32,7 @@ if (!empty($weblinkCategories)) {
             <?php 
             echo $this->Html->link(
                 $weblinkCategory['WeblinkCategory']['linkCount'], 
-                ($weblinkCategory['WeblinkCategory']['linkCount'])?array('controller' => 'weblinks', 'action' => 'index', 'category_id' => $weblinkCategory['WeblinkCategory']['id']):'#', 
+                array('controller' => 'weblinks', 'action' => 'index', 'category_id' => $weblinkCategory['WeblinkCategory']['id']), 
                 array('class' => 'btn')
             ); 
             ?>

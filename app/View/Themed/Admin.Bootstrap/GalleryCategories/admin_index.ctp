@@ -36,7 +36,7 @@ if (!empty($galleryCategories)) {
                 <?php 
                 echo $this->Html->link(
                     $galleryCategory['GalleryCategory']['imageCount'], 
-                    ($galleryCategory['GalleryCategory']['imageCount'])?array('controller' => 'galleryItems', 'action' => 'index', 'category_id' => $galleryCategory['GalleryCategory']['id']):'#', 
+                    array('controller' => 'galleryItems', 'action' => 'index', 'category_id' => $galleryCategory['GalleryCategory']['id']), 
                     array('class' => 'btn')
                 ); 
                 ?>

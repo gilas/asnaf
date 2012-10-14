@@ -72,8 +72,8 @@ class AppController extends Controller {
     
     private function __initializeAuth(){
         $this->Auth->authError = 'اجازه دسترسی به آدرس درخواستی را ندارید.';
-        $this->Auth->loginAction =    array('plugin' => null,'controller' => 'users','action' => 'login',);
-        $this->Auth->logoutRedirect = array('plugin' => null,'controller' => 'users','action' => 'login',);
+        $this->Auth->loginAction =    array('plugin' => null,'controller' => 'users','action' => 'login');
+        $this->Auth->logoutRedirect = array('plugin' => null,'controller' => 'users','action' => 'login');
         $this->Auth->authenticate =   array(
             //AuthComponent::ALL => array('scope' => array('User.is_active' => 1)),
             'Form',
