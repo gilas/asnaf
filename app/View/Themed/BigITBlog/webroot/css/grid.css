@@ -19,8 +19,8 @@
 .container .one-fourth,
 .container .two-thirds,
 .container .three-fourths {
-	float:left;
-	margin-right:20px;
+	float:right;
+	margin-left:20px;
 }
 
 .container .one-half.last,
@@ -28,7 +28,7 @@
 .container .one-fourth.last,
 .container .two-thirds.last,
 .container .three-fourths.last {
-	margin-right:0;
+	margin-left:0;
 }
 
 .container .one-half       { width:460px; } 

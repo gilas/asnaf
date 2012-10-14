@@ -125,13 +125,14 @@ class GalleryItemsController extends AppController {
         }
         $image = $this->GalleryItem->find('first', array(
             'conditions' => array(
-                'GalleryItem.id' => $id
+                'GalleryItem.id' => $id,
+                'GalleryItem.published' => true,
             )
                 ));
         $neighbors = $this->GalleryItem->find('neighbors', array(
             'field' => 'lft',
             'value' => $image['GalleryItem']['lft'],
-            'conditions' => array('GalleryItem.gallery_category_id' => $catId),
+            'conditions' => array('GalleryItem.gallery_category_id' => $catId,'GalleryItem.published' => true),
             'order' => 'GalleryItem.lft ASC',
             'contain' => false,
             )
@@ -150,7 +151,8 @@ class GalleryItemsController extends AppController {
     public function getItems($id = NULL) {
         $images = $this->GalleryItem->find('all', array(
             'conditions' => array(
-                'GalleryItem.gallery_category_id' => $id
+                'GalleryItem.gallery_category_id' => $id,
+                'GalleryItem.published' => true,
             ),
             'order' => 'GalleryItem.lft ASC'
                 ));

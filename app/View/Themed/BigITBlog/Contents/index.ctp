@@ -20,7 +20,7 @@ if(empty($contents)){
         <h2 class="entry-title"><a href="<?php echo $this->Html->url(array('action' => 'view',$content['Content']['id'].'-'.$content['Content']['slug'])) ?>"><?php echo $content['Content']['title']; ?></a></h2>
         <div class="entry-meta">
 			<span class="calender"><?php echo Jalali::niceShort($content['Content']['created']); ?></span>
-			<span class="comments"><a href="#"><?php echo count($content['Comment']); ?> نظر</a></span>
+			<span class="comments"><a href="<?php echo $this->Html->url(array('action' => 'view',$content['Content']['id'].'-'.$content['Content']['slug']))?>#comments"><?php echo $content['countComment']; ?> نظر</a></span>
 			<span class="user"><a href="#"><?php echo $content['User']['name']; ?></a></span>
 		</div>
         <div class="entry-body">
@@ -44,8 +44,8 @@ if(empty($contents)){
     
     ?>
 	<ul>
-		<li><a href="#" class="previous disabled"></a></li>
-        <?php echo $this->Paginator->numbers(array('class' => 'page','separator' => ' ')); ?>
-		<li><a href="#" class="next"></a></li>
+        <?php echo $this->Paginator->prev('',array('class' => 'previous','tag' => 'li'),'',array('class' => 'previous disabled','tag' => 'li')); ?>
+        <?php echo $this->Paginator->numbers(array('class' => 'page','separator' => ' ','tag' => 'li')); ?>
+        <?php echo $this->Paginator->next('',array('class' => 'next','tag' => 'li'),'',array('class' => 'next disabled','tag' => 'li')); ?>
 	</ul>
 </nav>

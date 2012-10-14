@@ -288,6 +288,7 @@ class ContentsController extends AppController {
     public function index($conditions = array()) {
         $this->set('title_for_layout', 'مطالب');
         $this->paginate['conditions']['Content.published'] = true;
+        $this->paginate['contain'] = array('User','ContentCategory');
         $this->paginate = Set::merge($this->paginate,$conditions);
         // RSS
         if ($this->RequestHandler->isRss()) {
@@ -301,6 +302,15 @@ class ContentsController extends AppController {
             throw new NotFoundException();
         }
         $contents = $this->paginate();
+        if($contents){
+            foreach($contents as &$content){
+                $content['countComment'] = $this->Content->Comment->find('count',array(
+                    'conditions' => array('published' => true,'content_id' => $content['Content']['id']),
+                    'contain' => false,
+                    )
+                ); 
+            }
+        }
         $this->set(compact('contents'));
     }
 
@@ -311,7 +321,11 @@ class ContentsController extends AppController {
         }
         $content = $this->Content->read();
         $this->set('content', $content);
-        $this->set('comments', $this->Content->Comment->find('all', array('conditions' => array('Comment.content_id' => $id, 'Comment.published' => '1'))));
+        $this->set('comments', $this->Content->Comment->find('all', array(
+            'conditions' => array('Comment.content_id' => $id, 'Comment.published' => '1'),
+            'contain' => false,
+            )
+        ));
         $categories = $this->Content->ContentCategory->getPath($content['Content']['content_category_id']);
         $this->set('categories', $categories);
 

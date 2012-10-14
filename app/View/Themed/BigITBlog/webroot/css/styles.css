@@ -19,11 +19,11 @@ body {
 
 h1,h2,h3,h4,h5,h6 {
 	margin-bottom:10px;
-	font-weight:600;
+	font-weight:normal;
 	line-height:1.2;
 	color:#444;
 	letter-spacing:-0.06em;
-    font-family:'BJalal';
+    font-family:'BNazanin';
 }
 
 h1 { font-size:35px; font-weight:300;  }
@@ -57,6 +57,7 @@ a:hover { color:#ff674f; }
 
 img { max-width:100%; }
 
+p{text-align: justify;margin: 0 2px;}
 
 /* ---------------------------------------------------------------------- */
 /*  General Classes
@@ -214,7 +215,7 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 
 #header { margin-bottom:20px; border-bottom:1px solid #e4e4e4; }
 
-#header .head-logo { float:left; height:99px; }
+#header .head-logo { float:right; height:99px; }
 
 #header .logo {
 	position:relative;
@@ -240,18 +241,17 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 /*  Navigation
 /* ---------------------------------------------------------------------- */
 
-.main-nav { float:right; }
+.main-nav { float:left; }
 
 .main-nav > ul > li { position:relative; float:right; margin-left:30px; }
 .main-nav > ul > li:last-child { margin:0; }
 
 .main-nav > ul > li > a {
-    font-family: 'BJalal';
+    font-family: 'BNazanin';
 	display:block;
 	padding:37px 0;
 	color:#333333;
 	font-size:16px;
-	font-weight:bold;
 	border-top:3px solid #fff;
 	-webkit-transition:all .3s;
 	   -moz-transition:all .3s;
@@ -715,9 +715,12 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 
 .blog-nav { float:right; margin:20px 0 0; }
 
-.blog-nav li { float:right; margin-left:5px; }
+.blog-nav li { 
+    float:right; 
+    margin-left:5px; 
+}
 
-.blog-nav a {
+.blog-nav a, .blog-nav .current {
 	padding:4px 11px;
 	background:#ff674f;
 	font-weight:bold;
@@ -734,24 +737,33 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 	        transition:background-color .3s;
 }
 
-.blog-nav .next,
-.blog-nav .previous {
+.blog-nav .next a,
+.blog-nav .previous a,
+.blog-nav .disabled{
 	display:inline-block;
 	width:30px;
-	height:30px;
+	height:28px;
 	padding:0;
 	margin:-5px 0 0;
 	background:#ff674f url(../img/arrow_nav.png) no-repeat -1px 0;
 }
 
-.blog-nav .previous { background-position:-30px 0; }
+.blog-nav .previous a,.blog-nav .previous.disabled{ background-position:-30px 0; }
 
-.blog-nav .disabled { background-color:#eee; cursor:auto; pointer-events:none; }
+.blog-nav .disabled { 
+    -webkit-border-radius:3px;
+	   -moz-border-radius:3px;
+	   		border-radius:3px;
+    cursor:auto; 
+    pointer-events:none; 
+    background-color:#eee; 
+    margin-left:5px;
+}
 .blog-nav .disabled:hover { background-color:#eee; }
 
 .blog-nav a:hover,
 .blog-nav .current { background-color:#444; }
-
+.blog-nav .current { margin-top: -4px; padding: 5px 11px ;}
 
 /* ---------------------------------------------------------------------- */
 /*  Comments
@@ -765,14 +777,14 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 
 .comment-list > .comment:first-child { margin-top:0; }
 
-.comment .avatar { width:35px; float:left; }
+.comment .avatar { width:35px; float:right; }
 
 .comment article {
 	position:relative;
-	float:right;
+	float:left;
 	width:635px;
 	padding:20px;
-	margin:0 0 0 30px;
+	margin:0 30px 0 0;
 	background:#f8f8f8;
 	-webkit-box-sizing:border-box;
 	   -moz-box-sizing:border-box;
@@ -783,11 +795,11 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 	width:0;
 	height:0;
 	border-style:solid;
-	border-width:9px 9px 9px 0;
-	border-color:transparent #f8f8f8 transparent  transparent;
+	border-width:9px 0 9px 9px;
+	border-color:transparent transparent  transparent #f8f8f8;
 	position:absolute;
 	top:10px;
-	left:-9px;
+	right:-9px;
 }
 
 .comment .comment-meta { margin:0 0 9px; padding:0 0 7px; border-bottom:1px solid #e4e4e4; }
@@ -1075,68 +1087,11 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 		-webkit-background-size:30px;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.button .close{
+    color: #CC3E29;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    left: -7px;
+    position: relative;
+}
