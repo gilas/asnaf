@@ -46,11 +46,11 @@ class CommentsController extends AppController {
 
         if ($this->Comment->save($this->request->data)) {
             if ($is_published)
-                $this->Session->setFlash('نظر با موفقیت افزوده شد.', 'message', array('type' => 'success'));
+                $this->Session->setFlash('نظر با موفقیت افزوده شد.', 'message', array('type' => 'success'),'comment');
             else
-                $this->Session->setFlash('نظر با موفقیت افزوده شد ولی برای نمایش ابتدا باید به تایید مدیریت برسد!', 'message', array('type' => 'success'));
+                $this->Session->setFlash('نظر با موفقیت افزوده شد ولی برای نمایش ابتدا باید به تایید مدیریت برسد!', 'message', array('type' => 'success'),'comment');
         } else {
-            $this->Session->setFlash('امکان درج نظر وجود ندارد', 'message', array('type' => 'error'));
+            $this->Session->setFlash('امکان درج نظر وجود ندارد', 'message', array('type' => 'error'),'comment');
         }
     }
 

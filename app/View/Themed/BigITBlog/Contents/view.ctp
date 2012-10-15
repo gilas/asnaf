@@ -1,4 +1,8 @@
 <?php
+$this->Validator->chooseForm('comment-form');
+$this->Validator->addRule('Comment');
+$this->Validator->validate();
+
 foreach ($categories as $category) {
     $this->Html->addCrumb($category['ContentCategory']['name'], array(
         'controller' => 'contents',
@@ -45,6 +49,7 @@ $this->set('title_for_layout',$content['Content']['title']);
 <?php endif; ?>
 
 <?php if ($content['Content']['allow_comment']): ?>
+<?php echo $this->Session->flash('comment');?>
 <section class="clearfix" id="comment-reply">
 	<h4 class="title">ارسال نظر</h4>
     <?php echo $this->Form->create('Comment',array('id' => 'comment-form', 'class' => 'form')); ?>

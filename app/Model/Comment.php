@@ -33,25 +33,35 @@ class Comment extends AppModel {
 			),
 		),
 		'email' => array(
+            'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'ورود ایمیل الزامی است',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 			'email' => array(
 				'rule' => array('email'),
-				'message' => 'ورود ایمیل الزامی است و باید با فرمت صحیح وارد شود',
+				'message' => 'فرمت ایمیل صحیح نمی باشد.',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+  
 		'website' => array(
 			'url' => array(
 				'rule' => array('url'),
 				'message' => 'ورود وبسایت الزامی است و باید با فرمت صحیح وارد شود',
-				//'allowEmpty' => false,
-				//'required' => false,
+				//'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+        
 		'content' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),

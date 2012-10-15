@@ -2,3 +2,16 @@
     font-family: "BNazanin";
     src: url("fonts/BNazanin.eot?#") format("eot"), url("fonts/BNazanin.woff") format("woff"), url("fonts/BNazanin.ttf") format("truetype");
 }
+@font-face{
+    font-family:iranian_sans;
+    src:url("fonts/IranianSans.eot");
+    src:url("fonts/IranianSans.woff") format("woff"),url("fonts/IranianSans.ttf") format("truetype"),url("fonts/IranianSans.svg") format("svg");
+}
+@font-face {
+	font-family: 'BAban';
+	src: url('fonts/BAban.ttf') format('truetype');
+	font-weight: bold;
+}
+.readmore{
+    font-family: ;
+}

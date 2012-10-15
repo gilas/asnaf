@@ -27,7 +27,7 @@ if(empty($contents)){
             <p>
                 <?php echo $content['Content']['intro']; ?>
                 <?php if(!empty($content['Content']['content'])): ?>
-                    <a href="<?php echo  $this->Html->url(array('action' => 'view',$content['Content']['id'].'-'.$content['Content']['slug'])) ?>">ادامه مطلب ...</a>
+                    <a class="readmore button dark small" href="<?php echo  $this->Html->url(array('action' => 'view',$content['Content']['id'].'-'.$content['Content']['slug'])) ?>">ادامه مطلب ...</a>
                 <?php endif;?>
             </p>
 		</div>
