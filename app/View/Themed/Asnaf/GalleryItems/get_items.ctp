@@ -1,29 +1,22 @@
 <?php
-$this->Html->script('modal', false);
-$this->Html->css('modal', null, array('inline' => false));
+$this->Html->script('fancybox', false);
+$this->Html->css('fancybox', null, array('inline' => false));
 ?>
 <div class="grid-wrapper">
     <ul class="gallery">
 <?php foreach($images as $image): ?>
         <li><?php 
-            echo $this->Upload->image(
-                $image, 
-                'GalleryItem.image',array('style' => 'thumb'),
-                array('id' => $image['GalleryItem']['id'], 'cat_id' => $image['GalleryCategory']['id'])
-            ); 
+            echo $this->Html->link(
+                $this->Upload->image($image, 'GalleryItem.image',array('style' => 'thumb')),
+                $this->Upload->url($image, 'GalleryItem.image', array('urlize' => false)),
+                array('escape' => false,'class' => 'fancybox', 'data-fancybox-group' => $image['GalleryCategory']['name'],'title' => $image['GalleryItem']['description'])
+            );
         ?></li>
 <?php endforeach; ?>
     </ul>
 </div>
 <script>
     $(function(){
-        $('ul.gallery img').click(function(){
-            id = $(this).attr('id')
-            cat_id = $(this).attr('cat_id')
-            $.get('<?php echo $this->Html->url(array('action' => 'view')) ?>/'+cat_id+'/'+id, function(data){
-                $.modal(data,{overlayClose:true});
-                
-            })
-        })
+        $('.fancybox').fancybox();
     })
 </script>
