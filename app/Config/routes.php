@@ -27,14 +27,8 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/' . SettingsController::read('Site.AdminAddress'), array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE));
 
-// dynamic routing , but it has one error, it cann't read plugin
-$prefix = SettingsController::read('Site.AdminAddress');
-Router::connect("/{$prefix}", array('controller' => 'dashboards', 'action' => 'index', 'admin' => TRUE));
-Router::connect("/{$prefix}/:controller", array('action' => 'index', 'admin' => TRUE));
-Router::connect("/{$prefix}/:controller/:action", array('admin' => TRUE));
-unset($prefix);
-// end of dynamic routing
 
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
