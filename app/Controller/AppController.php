@@ -75,7 +75,7 @@ class AppController extends Controller {
         $this->Auth->loginAction =    array('plugin' => null,'controller' => 'users','action' => 'login');
         $this->Auth->logoutRedirect = array('plugin' => null,'controller' => 'users','action' => 'login');
         $this->Auth->authenticate =   array(
-            //AuthComponent::ALL => array('scope' => array('User.is_active' => 1)),
+            AuthComponent::ALL => array('scope' => array('User.active' => 1)),
             'Form',
         );
         $this->Auth->flash =  array('element' => 'message','key' => 'auth','params' => array('type' => 'warning  no-margin-login top',));
@@ -176,13 +176,20 @@ class AppController extends Controller {
      */
     public function admin_dispatch() {
         if (empty($this->request->data['action'])) {
-            $this->Session->setFlash('اشکال در پردازش اطلاعات', 'alert', array('type' => 'error'));
+            $this->Session->setFlash('اشکال در پردازش اطلاعات', 'message', array('type' => 'error'));
             $this->redirect($this->referer());
         }
-        $action = $this->request->data['action'];
+        $action = 'admin_' . $this->request->data['action'];
+        $request = Router::getRequest();
+        $request['action'] = $action;
+        // Check user can access to this action
+        if(! $this->Auth->isAuthorized(null,$request)){
+            $this->Session->setFlash('اجازه دسترسی به آدرس درخواستی را ندارید.', 'message', array('type' => 'warning  no-margin-login top'),'auth');
+            $this->redirect($this->referer());
+        }
         unset($this->request->data['action']);
         //with prefix
-        $this->setAction('admin_' . $action);
+        $this->setAction($action);
     }
 
     /**

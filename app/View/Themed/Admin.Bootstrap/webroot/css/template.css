@@ -241,3 +241,23 @@ div.alert-input-error{
     padding-right: 20px;
   }
 }
+
+.show-comment{
+	display: table;
+	clear: both;
+	margin: 10px 0;
+	width: 100%
+}
+.show-comment label{
+	display: inline-block;
+	float:right;
+	width:100px;
+}
+.show-comment span{
+	font-weight: bold;
+	float:right;
+	clear: left;
+}
+.show-comment .comment-item{
+	clear:both;
+}

@@ -10,6 +10,13 @@ App::uses('AppController', 'Controller');
 class CommentsController extends AppController {
     
     public $publicActions = array('add_comment');
+    public $paginateConditions = array(
+        'content' => array(
+            'type' => 'LIKE',
+            'field' => 'Comment.content',
+        ),
+        'published' => array('field' => 'Comment.published'),
+    );
 
     public function beforeRender() {
         parent::beforeRender();
@@ -25,14 +32,16 @@ class CommentsController extends AppController {
 
     public function admin_index() {
         $this->set('title_for_layout', 'مشاهده نظرات');
-
-        $comments = $this->Comment->find('all', array('order' => array('Comment.created' => 'DESC')));
+        $this->paginate['order'] = array('Comment.created' => 'DESC');
+        $comments = $this->paginate();
         for ($i = 0; $i < count($comments); $i++) {
             if ($comments[$i]['Comment']['parent_id'] != 0) {
                 $parentName = $this->Comment->findById($comments[$i]['Comment']['parent_id'], array('fields' => 'name'));
                 $comments[$i]['Comment']['parent_name'] = $parentName['Comment']['name'];
             }
         }
+        // add this helper for using FilterHelper in Filter Form
+        $this->helpers[] = 'AdminForm';
         $this->set('comments', $comments);
     }
 
@@ -63,32 +72,16 @@ class CommentsController extends AppController {
                 )));
     }
 
-    public function admin_publish_comment($id = NULL) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
+    public function admin_changeStatus() {        
+        $msg = 'نظر به حالت بررسی نشده تغییر وضعیت داد.';
+        switch($this->request['data']['value']){
+            case 1:
+                $msg = 'نظر با موفقیت منتشر شد.';
+            case 1:
+                $msg = 'نظر با موفقیت به حالت منتشر نشده تغییر وضعیت داد';
         }
-        $this->Comment->id = $id;
-        if (!$this->Comment->exists()) {
-            throw new NotFoundException(SettingsController::read('Error.Code-14'));
-        }
-        if ($this->Comment->saveField('published', 1)) {
-            $this->Session->setFlash('نظر با موفقیت منتشر شد.', 'message', array('type' => 'success'));
-            $this->redirect($this->referer());
-        }
-    }
-
-    public function admin_unpublish_comment($id = NULL) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException(SettingsController::read('Error.Code-12'));
-        }
-        $this->Comment->id = $id;
-        if (!$this->Comment->exists()) {
-            throw new NotFoundException(SettingsController::read('Error.Code-14'));
-        }
-        if ($this->Comment->saveField('published', 0)) {
-            $this->Session->setFlash('نظر با موفقیت از حالت انتشار خارج شد.', 'message', array('type' => 'success'));
-            $this->redirect($this->referer());
-        }
+        $this->_changeStatus('Comment', 'published', $this->request['data']['value'], $msg);
+        $this->redirect($this->referer());
     }
 
     public function admin_delete($id = NULL) {
@@ -105,8 +98,8 @@ class CommentsController extends AppController {
         }
     }
 
-    public function admin_replyComment($id = NULL) {
-        $this->helpers = array('TinyMCE.TinyMCE');
+    public function admin_reply($id = NULL) {
+        $this->helpers[] = 'TinyMCE.TinyMCE';
         $this->set('title_for_layout', 'پاسخ به نظر');
         $comment = $this->Comment->find('first', array('conditions' => array('Comment.id' => $id)));
         $this->set('comment', $comment);
@@ -127,8 +120,8 @@ class CommentsController extends AppController {
         }
     }
 
-    public function admin_editComment($id = NULL) {
-        $this->helpers = array('TinyMCE.TinyMCE');
+    public function admin_edit($id = NULL) {
+        $this->helpers[] = 'TinyMCE.TinyMCE';
         $this->set('title_for_layout', 'ویرایش نظر');
         $this->Comment->id = $id;
         if (!$this->Comment->exists()) {

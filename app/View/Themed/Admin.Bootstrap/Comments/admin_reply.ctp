@@ -27,11 +27,23 @@ echo $this->Form->create('Comment', array(
         </li>
     </ul>
 </div>
+<div class="show-comment">
+    <h3>مشخصات نظر ارسال شده</h3>
+    <div class="comment-item">
+        <label>نویسنده :</label> 
+        <span><?php echo $comment['Comment']['name']; ?></span>
+    </div>
+    <div class="comment-item">
+        <label>پست الکترونیک :</label> 
+        <span><?php echo $comment['Comment']['email']; ?></span>
+    </div>
+    <div class="comment-item">
+        <label>متن :</label> 
+        <span><?php echo $comment['Comment']['content']; ?></span>
+    </div>
+</div>
 <?php
-echo $this->Form->input('name', array('label' => 'نام'));
-echo $this->Form->input('email', array('label' => 'پست الکترونیک'));
-echo $this->Form->input('website', array('label' => 'وبسایت'));
 $this->TinyMCE->editor('simple');
-echo $this->Form->input('content', array('label' => 'متن', 'class' => 'tinymce'));
+echo $this->Form->input('content', array('label' => 'متن','id' => 'tinyElm1', 'class' => 'tinymce'));
 echo $this->Form->end();
 ?>

@@ -21,7 +21,7 @@ $this->set('title_for_layout',$content['Content']['title']);
 <h5 class="caption">نظرات</h5>
     <div id="comments">
         <?php foreach ($comments as $comment): ?>
-            <blockquote>
+            <blockquote  id="comment-<?php echo $comment['Comment']['id'] ?>">
                 <?php echo $comment['Comment']['content'] ?>
             </blockquote>
         <?php endforeach; ?>

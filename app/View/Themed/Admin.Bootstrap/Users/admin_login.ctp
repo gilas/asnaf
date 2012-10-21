@@ -6,4 +6,3 @@ echo $this->Form->input('username', array('label' => 'نام کاربری'));
 echo $this->Form->input('password', array('label' => 'کلمه عبور'));
 ?>
 <input type="submit" name="" value="ورود به سیستم" class="btn btn-primary btn-large" />
-<a href="register" class="btn btn-large">ثبت نام در سیستم</a>

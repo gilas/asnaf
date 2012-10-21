@@ -321,7 +321,7 @@ class ContentsController extends AppController {
         }
         $content = $this->Content->read();
         $this->set('content', $content);
-        $this->set('comments', $this->Content->Comment->find('all', array(
+        $this->set('comments', $this->Content->Comment->find('threaded', array(
             'conditions' => array('Comment.content_id' => $id, 'Comment.published' => '1'),
             'contain' => false,
             )

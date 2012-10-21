@@ -55,8 +55,6 @@ a:hover { color:#ff674f; }
 	background:#ff674f;
 }
 
-img { max-width:100%; }
-
 p{text-align: justify;margin: 0 2px;}
 
 /* ---------------------------------------------------------------------- */
@@ -226,7 +224,6 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 #header .logo {
 	position:relative;
 	top:50%;
-	margin:-14px 0 0; /* Margin-top = half the height of the logo, 28/2 = 14 */
 }
 
 
@@ -815,7 +812,7 @@ input[type="text"]:focus { border-color:#aaaaaa; }
 .comment .date,
 .comment .comment-reply-link { display:inline-block; font-size:12px; line-height:16px; }
 
-.comment .children { float:left; width:635px; padding:20px 0 0 65px; }
+.comment .children { float:left; width:635px; padding:20px 65px 0 0; }
 
 .comment .children article { width:570px; }
 
@@ -1100,4 +1097,8 @@ input[type="text"]:focus { border-color:#aaaaaa; }
     font-weight: bold;
     left: -7px;
     position: relative;
+}
+#footer .avatar{
+    float: right;
+    margin: 11px;
 }

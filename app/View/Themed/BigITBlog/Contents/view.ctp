@@ -3,6 +3,9 @@ $this->Validator->chooseForm('comment-form');
 $this->Validator->addRule('Comment');
 $this->Validator->validate();
 
+App::uses('CommentHelper','View/Themed/BigItBlog/Helper');
+$this->Comment = new CommentHelper($this);
+
 foreach ($categories as $category) {
     $this->Html->addCrumb($category['ContentCategory']['name'], array(
         'controller' => 'contents',
@@ -28,22 +31,7 @@ $this->set('title_for_layout',$content['Content']['title']);
 <section class="clearfix" id="comments">
     <h4 class="title"><?php echo count($comments); ?> نظر</h4>
     <ul class="comment-list">
-        <?php foreach ($comments as $comment): ?>
-            <li class="comment clearfix">
-                <?php echo $this->Html->image('comment-avatar.jpg',array('class' => 'avatar', 'alt' => $comment['Comment']['name'])) ?>
-                <article><span class="arrow"></span>
-    				<div class="comment-meta">
-    					<h4 class="author"><a target="_blank" href="<?php echo $comment['Comment']['website'] ?>"><?php echo $comment['Comment']['name'] ?></a></h4>
-    					<p class="date"><?php echo Jalali::niceShort($comment['Comment']['created']) ?></p>
-    				</div>
-    
-    				<div class="comment-body">
-    					<p><?php echo $comment['Comment']['content'] ?></p>
-    				</div>
-    
-    			</article>
-            </li>
-        <?php endforeach; ?>
+        <?php echo $this->Comment->showContentComments($comments); ?>
     </ul>
 </section>
 <?php endif; ?>
